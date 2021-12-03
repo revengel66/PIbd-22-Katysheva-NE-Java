@@ -1,23 +1,5 @@
 import java.awt.*;
-public class Excavator {
-    private int _startPosX; /// Левая координата отрисовки
-    private int _startPosY; /// Верхняя кооридната отрисовки
-    private int _pictureWidth; /// Ширина окна отрисовки
-    private int _pictureHeight; /// Высота окна отрисовки
-    private  int exWidth = 355; /// Ширина отрисовки екскаватора
-    private  int exHeight = 250;/// Высота отрисовки екскаватора
-
-    public int MaxSpeed; /// Максимальная скорость
-    public int getMaxSpeed() { return MaxSpeed; }
-    public void setMaxSpeed(int maxSpeed) { MaxSpeed = maxSpeed; }
-
-    public float Weight; /// Вес экскаватора
-    public float getWeight() { return Weight; }
-    public void setWeight(int Weight) { Weight = Weight; }
-
-    public Color MainColor; /// Основной цвет
-    public Color getMainColor() { return MainColor; }
-    public void setMainColor(Color MainColor) { MainColor = MainColor; }
+public class Excavator extends TrackedVehicle{
 
     public Color DopColor; /// Дополнительный цвет
     public Color getDopColor() { return DopColor; }
@@ -43,62 +25,26 @@ public class Excavator {
     public boolean getRollers() { return RollersIs; }
     public void setRollers(boolean RollersIs) { RollersIs = RollersIs; }
 
-    private DopRollers rollers;
-
+    private IRollers TypeRollers;
     /// Иницифализация свойств
-    public Excavator(int maxSpeed, float weight, Color mainColor, Color dopColor, boolean bucket, boolean handle, boolean arrow, boolean counterweight, boolean rollersIs, int countRollers)
+    public Excavator(int maxSpeed, float weight, Color mainColor, Color dopColor, boolean bucket, boolean handle, boolean arrow, boolean counterweight, boolean rollersIs, int countRollers, String typeRollers)
     {
-        MaxSpeed = maxSpeed;
-        Weight = weight;
-        MainColor = mainColor;
+        super(maxSpeed, weight, mainColor, 355, 250);
         DopColor = dopColor;
         Bucket = bucket;
         Handle = handle;
         Arrow = arrow;
         СounterWeight = counterweight;
         RollersIs = rollersIs;
-        this.rollers = new DopRollers(countRollers);
-    }
-    public void SetPosition(int x, int y, int width, int height) /// Установка позиции автомобиля
-    {
-        _startPosX = x;
-        _startPosY = y;
-        _pictureWidth = width;
-        _pictureHeight = height;
-
-    }
-    public void MoveTransport(Direction direction) /// Изменение направления пермещения
-    {
-        float step = MaxSpeed * 100 / Weight;
-        switch (direction)
-        {
-            // вправо
-            case Right:
-                if (_startPosX + step < _pictureWidth - exWidth)
-                {
-                    _startPosX += step;
-                }
+        switch (typeRollers){
+            case "Обычные":
+                TypeRollers = new RollersUsual(countRollers);
                 break;
-            //влево
-            case Left:
-                if (_startPosX - step > 0)
-                {
-                    _startPosX -= step;
-                }
+            case "Горизонтальные":
+                TypeRollers = new RollersHorisontal(countRollers);
                 break;
-            //вверх
-            case Up:
-                if (_startPosY - step > 0)
-                {
-                    _startPosY -= step;
-                }
-                break;
-            //вниз
-            case Down:
-                if (_startPosY + step < _pictureHeight - exHeight)
-                {
-                    _startPosY += step;
-                }
+            case "Вертикальные":
+                TypeRollers = new RollersVertical(countRollers);
                 break;
         }
     }
@@ -135,20 +81,6 @@ public class Excavator {
                 g2d.drawOval(_startPosX + 335, _startPosY + 160, 20, 20);
             }
         }
-        g2d.setColor(MainColor);
-        g2d.fillRect(_startPosX, _startPosY + 150, 150, 50); //Нижняя часть кузова
-        g2d.setPaint(DopColor);
-        g2d.drawRect(_startPosX, _startPosY + 150, 150, 50); //Нижняя часть кузова
-        g2d.setColor(MainColor);
-        g2d.fillRect(_startPosX + 70, _startPosY + 100, 80, 90);//Верхняя часть кузова
-
-        g2d.setPaint(DopColor);
-        g2d.drawRect(_startPosX + 70, _startPosY + 100, 80, 90);//Верхняя часть кузова
-        g2d.drawRect(_startPosX + 85, _startPosY + 110, 60, 60);//Окно
-
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(_startPosX + 85, _startPosY + 110, 60, 60);//Окно
-
         if (СounterWeight)
         {
             g2d.setColor(DopColor);
@@ -156,18 +88,9 @@ public class Excavator {
             g2d.setPaint(Color.BLACK);
             g.drawRect(_startPosX+10, _startPosY + 130, 30, 20); //Противовес
         }
-        g2d.setColor(Color.BLACK);
-        g.fillOval(_startPosX, _startPosY + 200, 50, 50); //Гусеничная тележка
-        g.fillOval(_startPosX + 160, _startPosY + 200, 50, 50);
-        g.fillRect(_startPosX + 25, _startPosY + 200, 160, 50);
-
-        g2d.setColor(Color.GRAY);
-        g.fillOval(_startPosX + 5, _startPosY + 205, 40, 40);
-        g.fillRect(_startPosX + 50, _startPosY + 215, 110, 20);
-        g.fillOval(_startPosX + 165, _startPosY + 205, 40, 40);
-
+        super.DrawTransport(g);
         if (RollersIs){
-            rollers.DrawRolls(g, DopColor, _startPosX, _startPosY);
+            TypeRollers.DrawRollers(g, DopColor, _startPosX, _startPosY);
         }
     }
 

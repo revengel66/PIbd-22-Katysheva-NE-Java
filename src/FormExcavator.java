@@ -14,6 +14,9 @@ public class FormExcavator {
     private JPanel ArrowWrapperPanel;
 
     private JComboBox<String> comboBoxRollers;
+    private JButton buttonCreateTrackedVehicle;
+    private JButton buttonCreateExcavator;
+    private JComboBox<String> comboBoxType;
     private DrawPic draw;
     private JFrame frameExcavator;
 
@@ -23,7 +26,8 @@ public class FormExcavator {
         frameExcavator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         draw = new DrawPic();
 
-        buttonCreate.addActionListener(e -> setExcavator());
+        buttonCreateTrackedVehicle.addActionListener(e -> setTrackedVehicle());
+        buttonCreateExcavator.addActionListener(e -> setExcavator());
         buttonUp.addActionListener(e -> clickArrow(buttonUp));
         buttonDown.addActionListener(e -> clickArrow(buttonDown));
         buttonLeft.addActionListener(e -> clickArrow(buttonLeft));
@@ -31,10 +35,17 @@ public class FormExcavator {
         frameExcavator.add(MainPanel);
         frameExcavator.setVisible(true);
     }
-
+    private void setTrackedVehicle() {
+        Random rnd = new Random();
+        draw.setTransport(new TrackedVehicle(rnd.nextInt(200)+100, rnd.nextInt(2000)+1000, Color.YELLOW));
+        draw.getTransport().SetPosition(rnd.nextInt(100), rnd.nextInt(100), MainPanel.getWidth(), MainPanel.getHeight()-ArrowWrapperPanel.getHeight()-ButtonPanel.getHeight() );
+        MainPanel.add(draw);
+        frameExcavator.repaint();
+        frameExcavator.setVisible(true);
+    }
     private void setExcavator(){
         Random rnd = new Random();
-        draw.setTransport(new Excavator(rnd.nextInt(200)+100, rnd.nextInt(2000)+1000, Color.YELLOW, Color.GRAY, true, true, true, true, true, comboBoxRollers.getSelectedIndex()));
+        draw.setTransport(new Excavator(rnd.nextInt(200)+100, rnd.nextInt(2000)+1000, Color.YELLOW, Color.GRAY, true, true, true, true, true, comboBoxRollers.getSelectedIndex(), comboBoxType.getSelectedItem().toString()));
         draw.getTransport().SetPosition(rnd.nextInt(100), rnd.nextInt(100), MainPanel.getWidth(), MainPanel.getHeight()-ArrowWrapperPanel.getHeight()-ButtonPanel.getHeight() );
         MainPanel.add(draw);
         frameExcavator.repaint();
