@@ -12,7 +12,7 @@ public class RollersHorisontal implements IRollers {//для отрисовки 
         this.dopEnum = DopEnum.setEnumNumber(countRollers);
     }
 
-    private void DrawRollHorisontal(Graphics g, Color DolColor, int StartPosX, int StartPosY){
+    public void DrawRollHorisontal(Graphics g, Color DolColor, int StartPosX, int StartPosY){
         g.setColor(DolColor);
         g.fillOval(StartPosX + 50, StartPosY + 203, 10, 10);
         g.setColor(Color.BLACK);

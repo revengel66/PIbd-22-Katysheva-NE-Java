@@ -24,7 +24,6 @@ public abstract class Vehical implements ITransport {
         _startPosY = y;
         _pictureWidth = width;
         _pictureHeight = height;
-
     }
     public abstract void DrawTransport(Graphics g);
     public abstract void MoveTransport(Direction direction);

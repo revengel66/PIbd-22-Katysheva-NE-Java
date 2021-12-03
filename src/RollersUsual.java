@@ -12,7 +12,7 @@ public class RollersUsual implements IRollers {//для отрисовки ка�
         this.dopEnum = DopEnum.setEnumNumber(countRollers);
     }
 
-    private void DrawRollUsual(Graphics g, Color DolColor, int StartPosX, int StartPosY){
+    public void DrawRollUsual(Graphics g, Color DolColor, int StartPosX, int StartPosY){
         g.setColor(DolColor);
         g.fillOval(StartPosX + 50, StartPosY + 203, 10, 10);
         g.setColor(Color.BLACK);

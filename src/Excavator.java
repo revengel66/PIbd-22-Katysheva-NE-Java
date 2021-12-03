@@ -25,7 +25,7 @@ public class Excavator extends TrackedVehicle{
     public boolean getRollers() { return RollersIs; }
     public void setRollers(boolean RollersIs) { RollersIs = RollersIs; }
 
-    private IRollers TypeRollers;
+    public IRollers TypeRollers;
     /// Иницифализация свойств
     public Excavator(int maxSpeed, float weight, Color mainColor, Color dopColor, boolean bucket, boolean handle, boolean arrow, boolean counterweight, boolean rollersIs, int countRollers, String typeRollers)
     {

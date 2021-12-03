@@ -17,15 +17,13 @@ public class FormExcavator {
     private JButton buttonCreateTrackedVehicle;
     private JButton buttonCreateExcavator;
     private JComboBox<String> comboBoxType;
-    private DrawPic draw;
+    private DrawTransport draw;
     private JFrame frameExcavator;
 
     public FormExcavator(){
         frameExcavator = new JFrame("Excavator");
         frameExcavator.setSize(new Dimension(1000, 700));
-        frameExcavator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        draw = new DrawPic();
-
+        frameExcavator.setDefaultCloseOperation(frameExcavator.DISPOSE_ON_CLOSE);
         buttonCreateTrackedVehicle.addActionListener(e -> setTrackedVehicle());
         buttonCreateExcavator.addActionListener(e -> setExcavator());
         buttonUp.addActionListener(e -> clickArrow(buttonUp));
@@ -34,6 +32,7 @@ public class FormExcavator {
         buttonRight.addActionListener(e -> clickArrow(buttonRight));
         frameExcavator.add(MainPanel);
         frameExcavator.setVisible(true);
+        draw = new DrawTransport();
     }
     private void setTrackedVehicle() {
         Random rnd = new Random();
@@ -69,5 +68,13 @@ public class FormExcavator {
                 break;
         }
         frameExcavator.repaint();
+    }
+    public void setVehicle(ITransport transport){
+        Random rnd = new Random();
+        draw.setTransport(transport);
+        draw.getTransport().SetPosition(rnd.nextInt(100), rnd.nextInt(100), MainPanel.getWidth(), MainPanel.getHeight()-ArrowWrapperPanel.getHeight()-ButtonPanel.getHeight() );
+        MainPanel.add(draw);
+        frameExcavator.repaint();
+        frameExcavator.setVisible(true);
     }
 }
