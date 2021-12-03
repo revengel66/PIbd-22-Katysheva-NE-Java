@@ -1,7 +1,7 @@
 import java.awt.*;
 public class RollersVertical implements IRollers {//для отрисовки катка
     private DopEnum dopEnum;
-    public int count;
+    private int count;
 
     public RollersVertical(int countRollers){
         this.count = countRollers;
@@ -37,8 +37,4 @@ public class RollersVertical implements IRollers {//для отрисовки к
             DrawRollVertical(g, DolColor, StartPosX + 100, StartPosY + 34);
         }
     }
-
-
-
-
 }

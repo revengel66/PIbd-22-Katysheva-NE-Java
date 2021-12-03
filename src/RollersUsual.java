@@ -1,7 +1,7 @@
 import java.awt.*;
 public class RollersUsual implements IRollers {//для отрисовки катка
     private DopEnum dopEnum;
-    public int count;
+    private int count;
 
     public RollersUsual(int countRollers){
         this.count = countRollers;
