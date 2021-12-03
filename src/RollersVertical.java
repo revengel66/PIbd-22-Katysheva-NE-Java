@@ -6,14 +6,13 @@ public class RollersVertical implements IRollers {//для отрисовки к
     public RollersVertical(int countRollers){
         this.count = countRollers;
         SetEnumRollers(count);
-        System.out.println("Вертикальные");
     }
     @Override
     public void SetEnumRollers(int countRollers){
         this.dopEnum = DopEnum.setEnumNumber(countRollers);
     }
 
-    public void DrawRollVertical(Graphics g, Color DolColor, int StartPosX, int StartPosY){
+    private void DrawRollVertical(Graphics g, Color DolColor, int StartPosX, int StartPosY){
         g.setColor(DolColor);
         g.fillOval(StartPosX + 50, StartPosY + 203, 10, 10);
         g.setColor(Color.BLACK);
