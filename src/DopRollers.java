@@ -31,8 +31,4 @@ public class DopRollers {//для отрисовки катка
             DrawRoll(g, DolColor, StartPosX + 100, StartPosY + 34);
         }
     }
-
-
-
-
 }
