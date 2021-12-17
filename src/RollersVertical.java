@@ -12,7 +12,7 @@ public class RollersVertical implements IRollers {//для отрисовки к
         this.dopEnum = DopEnum.setEnumNumber(countRollers);
     }
 
-    private void DrawRollVertical(Graphics g, Color DolColor, int StartPosX, int StartPosY){
+    public void DrawRollVertical(Graphics g, Color DolColor, int StartPosX, int StartPosY){
         g.setColor(DolColor);
         g.fillOval(StartPosX + 50, StartPosY + 203, 10, 10);
         g.setColor(Color.BLACK);
