@@ -94,4 +94,12 @@ public class Excavator extends TrackedVehicle{
         }
     }
 
+    public void setNewDopColor(Color DopColor) {
+        this.DopColor = DopColor;
+    }
+
+    public void setRollers(IRollers rollers){
+        this.TypeRollers = rollers;
+    }
+
 }

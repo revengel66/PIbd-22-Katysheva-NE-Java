@@ -21,6 +21,7 @@ public class RollersUsual implements IRollers {//для отрисовки ка�
     @Override
     public void DrawRollers(Graphics g, Color DolColor, int StartPosX, int StartPosY){
         if (dopEnum == DopEnum.FOUR || dopEnum == DopEnum.FIVE || dopEnum == DopEnum.SIX){
+
             DrawRollUsual(g, DolColor, StartPosX, StartPosY);
             DrawRollUsual(g, DolColor, StartPosX + 50, StartPosY);
             DrawRollUsual(g, DolColor, StartPosX + 100, StartPosY);

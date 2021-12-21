@@ -6,21 +6,18 @@ import java.util.Random;
 public class FormParking{
     private JPanel MainPanel;
     private JPanel rightPanel;
-    private JButton ParkTracVehButton;
-    private JButton ParkExButton;
     private JPanel buttonsPanel;
     private JLabel TakeCarLabel;
     private JPanel GroupTakeCarPanel;
     private JLabel LabelPlace;
     private JTextArea textAreaPlace;
     private JButton buttonDelete;
-    private JComboBox comboBoxRollers;
-    private JComboBox comboBoxType;
     private JTextField textBoxNewLevelName;
     private JButton buttonAddPark;
     private JList<String> listBoxParkings;
     private JButton buttonDelPark;
     private JButton buttonSet;
+    private JButton buttonAddTransport;
     private JFrame frameParking;
     private Excavator ex;
     private DefaultListModel<String> parkingList;
@@ -40,8 +37,7 @@ public class FormParking{
         parkingList = new DefaultListModel<>();
         listBoxParkings.setModel(parkingList);
         trackedVehicleList = new LinkedList<>();
-        ParkTracVehButton.addActionListener(e -> createTrackedVehicle());
-        ParkExButton.addActionListener(e -> createExcavator());
+        buttonAddTransport.addActionListener(e -> createTransport());
         buttonAddPark.addActionListener(e -> addParking());
         buttonDelPark.addActionListener(e -> delParking());
         listBoxParkings.addListSelectionListener(e -> listListener());
@@ -49,40 +45,27 @@ public class FormParking{
         buttonSet.addActionListener(e -> GetTransport());
         frameParking.repaint();
     }
-    private void createTrackedVehicle(){
-        Random rnd = new Random();
-        Color selectedColor = new JColorChooser().showDialog(frameParking, "Choose a color", Color.YELLOW);
-        if (selectedColor != null){
-            TrackedVehicle tv = new TrackedVehicle(rnd.nextInt(200)+100, rnd.nextInt(2000)+1000, selectedColor);
-            if(parkingCollection.get((String) listBoxParkings.getSelectedValue()).add(tv) != -1){
+    private void createTransport() {
+        FormTrackVehConfig frameConfig = new FormTrackVehConfig(this);
+    }
+    public void addTransport(TrackedVehicle vehicle) {
+        if (vehicle != null && listBoxParkings.getSelectedIndex() >= 0) {
+            if (((parkingCollection.get(listBoxParkings.getSelectedValue()).add(vehicle))) !=-1) {
                 frameParking.repaint();
-            }
-            else {JOptionPane.showMessageDialog(frameParking, "The parking lot is full");}
-        }
-    }
-    private void createExcavator(){
-        Random rnd = new Random();
-        Color selectedColor = new JColorChooser().showDialog(frameParking, "Choose a color", Color.YELLOW);
-        if (selectedColor != null){
-            Color selectedColorDop = new JColorChooser().showDialog(frameParking, "Choose a color", Color.GRAY);
-            if (selectedColorDop != null) {
-                ex = new Excavator(rnd.nextInt(200)+100, rnd.nextInt(2000)+1000, selectedColor, selectedColorDop, true, true, true, true, true, comboBoxRollers.getSelectedIndex(), comboBoxType.getSelectedItem().toString());
-                if(parkingCollection.get((String) listBoxParkings.getSelectedValue()).add(ex) != -1){
-                    frameParking.repaint();
-                }
             } else {
-                JOptionPane.showMessageDialog(frameParking, "The parking lot is full");
+                JOptionPane.showMessageDialog(frameParking, "Машину не удалось поставить");
             }
         }
     }
-
     private void GetTransport() {
         if (listBoxParkings.getSelectedIndex() >= 0) {
             if (!textBoxNewLevelName.getText().equals("")) {
                 try {
                     TrackedVehicle car = (parkingCollection.get((String)(listBoxParkings.getSelectedValue()))).delete(Integer.parseInt(textAreaPlace.getText()));
+                    System.out.println(car);
                     if (car != null) {
                         trackedVehicleList.add(car);
+                        System.out.println(trackedVehicleList.size());
                         frameParking.repaint();
                     } else {
                         JOptionPane.showMessageDialog(frameParking, "Транспорта с таким индексом нет!");
