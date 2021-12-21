@@ -1,21 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
-public class DrawParking extends JComponent {
-    private Parking<TrackedVehicle, IRollers> parking;
+public class DrawParking extends JPanel {
+    private  ParkingCollection parkingCollection;
+    private String selectedItem = null;
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        if (parking != null){
-            parking.Draw(g);
+    @Override
+    public void paint(Graphics g) {
+        if (selectedItem != null) {
+            if (parkingCollection != null) {
+                parkingCollection.get(selectedItem).Draw(g);
+            }
         }
-        super.repaint();
     }
 
-    public void setParking(Parking<TrackedVehicle, IRollers> parking){
-        this.parking = parking;
+    public void setSelectedItem(String selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
-    public Parking<TrackedVehicle, IRollers> getParking(){
-        return parking;
+    public DrawParking(ParkingCollection parkingCollection) {
+        this.parkingCollection = parkingCollection;
     }
 }
