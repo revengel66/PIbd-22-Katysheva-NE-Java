@@ -82,5 +82,9 @@ public class TrackedVehicle extends Vehical{
         g.fillOval(_startPosX + 165, _startPosY + 205, 40, 40);
 
     }
+    @Override
+    public void setNewMainColor(Color MainColor){
+        this.MainColor = MainColor;
+    }
 }
 

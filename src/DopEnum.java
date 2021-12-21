@@ -4,11 +4,11 @@ public enum DopEnum {
     SIX;
     public static DopEnum setEnumNumber(int number){
         switch (number){
-            case 0:
+            case 4:
                 return DopEnum.FOUR;
-            case 1:
+            case 5:
                 return DopEnum.FIVE;
-            case 2:
+            case 6:
                 return DopEnum.SIX;
         }
         return null;
